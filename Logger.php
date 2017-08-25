@@ -1,5 +1,7 @@
 <?php
 namespace phpkit\aliyunLogger;
+use MongoDB\Driver\Exception\Exception;
+
 require_once dirname(__FILE__) . '/Log_Autoload.php';
 
 class Logger
@@ -26,8 +28,8 @@ class Logger
         $this->endpoint = $params['endpoint'];
         $this->project = $params['project'];
         $this->logstore = $params['logstore'];
-        $this->topic = $params['topic'];
-        $this->client = new \Aliyun_Log_Client($this->endpoint, $this->accessKeyId, $this->accessKey, $this->token);;
+        $this->topic = isset($params['topic'])?$params['topic']:$this->topic;
+        $this->client = new \Aliyun_Log_Client($this->endpoint, $this->accessKeyId, $this->accessKey, $this->token);
     }
 
     public function begin()
@@ -37,17 +39,19 @@ class Logger
 
     public function commit()
     {
-        $request = new Aliyun_Log_Models_PutLogsRequest($this->project, $this->logstore, $this->topic, null, $this->logitems);
-        try {
-            $response = $this->client->putLogs($request);
-            var_dump($response);
-        } catch (Aliyun_Log_Exception $ex) {
-            var_dump($ex);
-        } catch (Exception $ex) {
-            var_dump($ex);
-        }
+
+        $request = new \Aliyun_Log_Models_PutLogsRequest($this->project, $this->logstore, $this->topic, null, $this->logitems);
         $this->logitems = array();
         $this->falg = 0;
+        try {
+            $response = $this->client->putLogs($request);
+           return $response;
+        } catch (Aliyun_Log_Exception $ex) {
+            throw new \Exception($ex->getMessage());
+        } catch (Exception $ex) {
+            throw new \Exception($ex->getMessage());
+        }
+
     }
 
     public function rollback()
@@ -58,11 +62,13 @@ class Logger
 
     public function log($arr = array())
     {
-        $topic = 'TestTopic';
-        $logItem = new Aliyun_Log_Models_LogItem();
+        $logItem = new \Aliyun_Log_Models_LogItem();
         $logItem->setTime(time());
         $logItem->setContents($arr);
-        $logitems[] = $logItem;
+        $this->logitems[] = $logItem;
+        if( $this->falg ===0 ){
+            $this->commit();
+        }
     }
 
 }
