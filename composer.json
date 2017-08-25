@@ -2,7 +2,7 @@
     "name": "phpkit/phpkit-aliyun-logger",
     "description": "phpkit-aliyun-logger",
     "keywords": [
-        "thriftRPC"
+        "phpkit-aliyun-logger"
     ],
     "homepage": "http://www.phpkit.me/",
     "license": "Apache-2.0",
