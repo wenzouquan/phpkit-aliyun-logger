@@ -1,0 +1,17 @@
+{
+    "name": "phpkit/phpkit-aliyun-loger",
+    "description": "phpkit-aliyun-loger",
+    "keywords": [
+        "thriftRPC"
+    ],
+    "homepage": "http://www.phpkit.me/",
+    "license": "Apache-2.0",
+    "config": {
+        "preferred-install": "dist"
+    },
+    "autoload": {
+        "psr-4": {
+            "phpkit\\aliyunLoger\\": "./"
+        }
+    }
+}
