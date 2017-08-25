@@ -1,6 +1,6 @@
 {
-    "name": "phpkit/phpkit-aliyun-loger",
-    "description": "phpkit-aliyun-loger",
+    "name": "phpkit/phpkit-aliyun-logger",
+    "description": "phpkit-aliyun-logger",
     "keywords": [
         "thriftRPC"
     ],
@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "phpkit\\aliyunLoger\\": "./"
+            "phpkit\\aliyunLogger\\": "./"
         }
     }
 }
