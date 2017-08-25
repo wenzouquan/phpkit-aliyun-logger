@@ -1,6 +1,6 @@
 {
-    "name": "phpkit/phpkit-aliyun-logger",
-    "description": "phpkit-aliyun-logger",
+    "name": "phpkit/aliyun-logger",
+    "description": "aliyun-logger",
     "keywords": [
         "phpkit-aliyun-logger"
     ],
