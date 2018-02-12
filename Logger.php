@@ -23,6 +23,7 @@ class Logger
      */
     public function __construct($params = array())
     {
+
         $this->accessKey = $params['accessKey'];
         $this->accessKeyId = $params['accessKeyId'];
         $this->endpoint = $params['endpoint'];
@@ -40,6 +41,7 @@ class Logger
     public function commit()
     {
 
+      // var_dump($this->logitems);
         $request = new \Aliyun_Log_Models_PutLogsRequest($this->project, $this->logstore, $this->topic, null, $this->logitems);
         $this->logitems = array();
         $this->falg = 0;
@@ -67,7 +69,7 @@ class Logger
         $logItem->setContents($arr);
         $this->logitems[] = $logItem;
         if( $this->falg ===0 ){
-            $this->commit();
+           return $this->commit();
         }
     }
 
